@@ -59,7 +59,7 @@ class gondolin {
 	
 	apt::source { 'ubuntu':
 		comment  => 'Multiverse Ubuntu package collection',
-		location => 'http://archive.ubuntu.com/',
+		location => 'http://uk.archive.ubuntu.com/ubuntu/',
 		repos    => 'main restricted universe multiverse'
 	}
 	

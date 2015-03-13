@@ -106,7 +106,7 @@ class gondolin {
 	# Atom
 	$atom_release = 'v0.187.0'
 	exec { 'download Atom':
-		command => "wget -N 'https://github.com/atom/atom/releases/download/$atom_release/atom-amd64.deb'",
+		command => "/usr/bin/wget -N 'https://github.com/atom/atom/releases/download/$atom_release/atom-amd64.deb'",
 		cwd     => '/var',
 		require => Package['wget']
 	} ~>

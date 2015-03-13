@@ -77,6 +77,7 @@ class gondolin {
 			   'ruby-dev',
 			   'curl', 'wget',
 			   'irssi',
+			   'eclipse',
 			   'iptables', 'traceroute']:
 		ensure => latest
 	}

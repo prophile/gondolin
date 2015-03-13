@@ -60,7 +60,7 @@ class gondolin {
 	apt::source { 'ubuntu':
 		comment  => 'Multiverse Ubuntu package collection',
 		location => 'http://uk.archive.ubuntu.com/ubuntu/',
-		repos    => 'main restricted universe multiverse'
+		repos    => 'main restricted universe multiverse',
 	}
 	
 	Package {
@@ -97,7 +97,8 @@ class gondolin {
 		comment  => 'Valve Software repo, for Steam',
 		location => 'http://repo.steampowered.com/steam/',
 		release  => 'precise',
-		repos    => 'steam'
+		repos    => 'steam',
+		include_src => false
 	}
 	package { 'steam':
 		ensure  => latest,
@@ -122,16 +123,17 @@ class gondolin {
 		key        => '7FAC5991',
 		key_source => 'https://dl-ssl.google.com/linux/linux_signing_key.pub'
 	} ->
-	apt::source { 'chrome':
+	apt::source { 'google-chrome':
 		comment  => 'Google Chrome repository',
-		location => 'http://dl.google.com/linux/chrome/deb/',
+		location => 'https://dl.google.com/linux/chrome/deb/',
 		release  => 'stable',
-		repos    => 'main'
+		repos    => 'main',
+		include_src => false
 	}
 	
 	package { 'google-chrome-stable':
 		ensure  => latest,
-		require => Apt::Source['chrome']
+		require => Apt::Source['google-chrome']
 	}
 	
 	# Spotify
@@ -143,7 +145,8 @@ class gondolin {
 		comment  => 'Spotify repository',
 		location => 'http://repository.spotify.com',
 		release  => 'stable',
-		repos    => 'non-free'
+		repos    => 'non-free',
+		include_src => false
 	}
 	
 	package { 'spotify-client':

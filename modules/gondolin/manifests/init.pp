@@ -2,9 +2,9 @@ class gondolin {
 	$me = 'alynn'
 	$real = 'Alistair Lynn'
 	$email = 'arplynn@gmail.com'
-	
+
 	$home = "/home/$me"
-	
+
 	user { $me:
 		ensure     => present,
 		comment    => $real,
@@ -13,7 +13,7 @@ class gondolin {
 		shell      => '/bin/sh',
 		require    => Package['zsh']
 	}
-	
+
 	# Some basic git configuration
 	augeas { "set $me git config":
 		lens    => 'Puppet.lns',
@@ -36,13 +36,13 @@ class gondolin {
 					"set alias/p 'add --patch'"],
 		require => User[$me]
 	}
-	
+
 	file { "$home/.zshrc":
 		ensure => file,
 		source => 'puppet:///modules/gondolin/zshrc',
 		owner  => $me
 	}
-	
+
 	file { "$home/.screenrc":
 		ensure => file,
 		source => 'puppet:///modules/gondolin/screenrc',
@@ -56,23 +56,23 @@ class gondolin {
 		purge_preferences    => true,
 		purge_preferences_d  => true
 	}
-	
+
 	apt::source { 'ubuntu':
 		comment  => 'Multiverse Ubuntu package collection',
 		location => 'http://uk.archive.ubuntu.com/ubuntu/',
 		repos    => 'main restricted universe multiverse',
 	}
-	
+
 	Package {
 		require => Apt::Source['ubuntu']
 	}
-	
+
 	package { ['screen',
 			   'nano',
 			   'zsh',
 			   'python', 'python-dev',
 			   'python3', 'python3-dev',
-			   'libyaml', 'libyaml-dev',
+			   'libyaml-dev',
 			   'libglfw3', 'libglfw3-dev',
 			   'ruby-dev',
 			   'curl', 'wget',
@@ -81,13 +81,13 @@ class gondolin {
 			   'iptables', 'traceroute']:
 		ensure => latest
 	}
-	
+
 	package { ['fpm', 'jekyll', 'travis']:
 		ensure   => latest,
 		provider => gem,
 		require  => Package['ruby-dev']
 	}
-	
+
 	# Steam
 	apt::key { 'volvo':
 		key        => 'B05498B7',
@@ -104,7 +104,7 @@ class gondolin {
 		ensure  => latest,
 		require => Apt::Source['volvo']
 	}
-	
+
 	# Atom
 	$atom_release = 'v0.187.0'
 	exec { 'download Atom':
@@ -117,7 +117,7 @@ class gondolin {
 		provider => dpkg,
 		source   => '/var/atom-amd64.deb'
 	}
-	
+
 	# Chrome
 	apt::key { 'chrome':
 		key        => '7FAC5991',
@@ -130,12 +130,12 @@ class gondolin {
 		repos    => 'main',
 		include_src => false
 	}
-	
+
 	package { 'google-chrome-stable':
 		ensure  => latest,
 		require => Apt::Source['google-chrome']
 	}
-	
+
 	# Spotify
 	apt::key { 'spotify':
 		key        => '94558F59',
@@ -148,7 +148,7 @@ class gondolin {
 		repos    => 'non-free',
 		include_src => false
 	}
-	
+
 	package { 'spotify-client':
 		ensure  => latest,
 		require => Apt::Source['spotify']

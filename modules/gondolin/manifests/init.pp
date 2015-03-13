@@ -49,7 +49,7 @@ class gondolin {
 		owner  => $me
 	}
 
-    class { 'apt':
+	class { 'apt':
 		always_apt_update    => true,
 		purge_sources_list   => true,
 		purge_sources_list_d => true,

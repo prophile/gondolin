@@ -75,6 +75,10 @@ class gondolin {
 			   'libyaml-dev',
 			   'libglfw3', 'libglfw3-dev',
 			   'ruby-dev',
+			   'gnome-shell-pomodoro',
+			   'anki',
+			   'docker.io',
+			   'nodejs', 'npm',
 			   'curl', 'wget',
 			   'irssi',
 			   'eclipse',
@@ -83,11 +87,24 @@ class gondolin {
 			   'iptables', 'traceroute']:
 		ensure => latest
 	}
+	
+	Package['nodejs'] -> Package['npm'];
 
 	package { ['fpm', 'jekyll', 'travis']:
 		ensure   => latest,
 		provider => gem,
 		require  => Package['ruby-dev']
+	}
+	
+	exec { 'install bower':
+	    cmd     => '/usr/bin/npm install -g bower',
+	    creates => '/usr/bin/bower',
+	    require => Package['npm']
+	}
+	exec { 'install vulcanize':
+	    cmd     => '/usr/bin/npm install -g vulcanize',
+	    creates => '/usr/bin/vulcanize',
+	    require => Package['npm']
 	}
 
 	# Steam

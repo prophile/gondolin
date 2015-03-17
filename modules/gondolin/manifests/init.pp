@@ -78,6 +78,7 @@ class gondolin {
 			   'curl', 'wget',
 			   'irssi',
 			   'eclipse',
+			   'blender',
 			   'iptables', 'traceroute']:
 		ensure => latest
 	}

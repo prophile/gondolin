@@ -79,6 +79,7 @@ class gondolin {
 			   'irssi',
 			   'eclipse',
 			   'blender',
+			   'ledger',
 			   'iptables', 'traceroute']:
 		ensure => latest
 	}
